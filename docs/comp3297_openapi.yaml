@@ -1,0 +1,728 @@
+openapi: 3.0.2
+info:
+  title: 'StudySafe Core'
+  version: '1.0'
+  description: 'These are REST APIs for COVID Task Force of HKU to monitor the covid situations in the campus, which helps conduct the safe F2F teaching. No authorization is required. Use the base URL: http://blooming-beach-58892.herokuapp.com/'
+paths:
+  /api/venues:
+    get:
+      operationId: listVenues
+      summary: 'List all venues of HKU'
+      description: 'Shows all fields for each venue'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Venue'
+              example:
+                - code: "CPD-LG.09"
+                  location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 170
+                - code: "CPD-LG.10"
+                  location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 150
+          description: 'View the information of the list of HKU venues'
+      tags:
+      - VenueList
+    post:
+      operationId: createVenueList
+      summary: 'Create a new venue list of HKU'
+      description: 'Create all fields for each venue'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Venue'
+            example:
+              - code: "CPD-LG.09"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 170
+              - code: "CPD-LG.10"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Venue'
+            example:
+              - code: "CPD-LG.09"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 170
+              - code: "CPD-LG.10"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Venue'
+            example:
+              - code: "CPD-LG.09"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 170
+              - code: "CPD-LG.10"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Venue'
+              example:
+                - code: "CPD-LG.09"
+                  location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 170
+                - code: "CPD-LG.10"
+                  location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 150
+          description: 'Create a new list of HKU venues'
+      tags:
+      - VenueList
+  /api/venues/{id}:
+    get:
+      operationId: retrieveVenueDetail
+      summary: 'List the information of a venue with specified code'
+      description: 'Shows all fields for this venue'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this venue'
+        schema:
+          type: string
+        example: 'CPD-LG.10'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Venue'
+              example:
+                - code: "CPD-LG.10"
+                  location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 150
+          description: 'View the information of the specified HKU venue'
+      tags:
+      - Venue
+    put:
+      operationId: updateVenueDetail
+      summary: 'Update the information of a venue with specified code'
+      description: 'Update all fields for this venue'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this venue'
+        schema:
+          type: string
+        example: 'CPD-LG.10'
+      requestBody:
+        content:
+          application/json:
+            schema: 
+                $ref: '#/components/schemas/Venue'
+            example:
+              - code: "CPD-LG.10"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+          application/x-www-form-urlencoded:
+            schema: 
+              $ref: '#/components/schemas/Venue'
+            example:
+              - code: "CPD-LG.10"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/Venue'
+            example:
+              - code: "CPD-LG.10"
+                location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Venue'
+              example:
+                - code: "CPD-LG.10"
+                  location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 150
+          description: 'Update all information of the specified HKU venue'
+      tags:
+      - Venue
+    patch:
+      operationId: partialUpdateVenueDetail
+      summary: 'Update partial information of a venue with specified code'
+      description: 'Update partial fields for this venue'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this venue'
+        schema:
+          type: string
+        example: 'CPD-LG.10'
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Venue'
+            example:
+              - location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+          application/x-www-form-urlencoded:
+            schema: 
+              $ref: '#/components/schemas/Venue'
+            example:
+              - location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/Venue'
+            example:
+              - location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                type: "LT"
+                capacity: 150
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Venue'
+              example:
+                - location: "Centennial Campus, Central Podium Levels – Lower Ground"
+                  type: "LT"
+                  capacity: 150
+          description: 'Update partial information of the specified HKU venue'
+      tags:
+      - Venue
+    delete:
+      operationId: destroyVenueDetail
+      summary: 'Delete the information of a venue with specified code'
+      description: 'Delete the record of this venue'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this venue'
+        schema:
+          type: string
+        example: 'CPD-LG.10'
+      responses:
+        '204':
+          description: 'Delete the record of the specified HKU venue'
+      tags:
+      - Venue
+  /api/hku-members:
+    get:
+      operationId: listHkuMembers
+      parameters: []
+      summary: 'List all members of HKU'
+      description: 'Shows all fields for each member'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/HkuMember'
+              example:
+                - hku_id: '3035638351'
+                  name: Chen Xueqing
+                - hku_id: '3035639379'
+                  name: Lu Meng
+          description: 'View the information of the list of HKU members'
+      tags:
+      - MemberList
+    post:
+      operationId: createHkuMemberList
+      summary: 'Create a new member list of HKU'
+      description: 'Create all fields for each member'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/HkuMember'
+            example:
+              - hku_id: '3035638351'
+                name: Chen Xueqing
+              - hku_id: '3035639379'
+                name: Lu Meng
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/HkuMember'
+            example:
+              - hku_id: '3035638351'
+                name: Chen Xueqing
+              - hku_id: '3035639379'
+                name: Lu Meng
+          multipart/form-data:
+            schema:
+                $ref: '#/components/schemas/HkuMember'
+            example:
+              - hku_id: '3035638351'
+                name: Chen Xueqing
+              - hku_id: '3035639379'
+                name: Lu Meng
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/HkuMember'
+              example:
+                - hku_id: '3035638351'
+                  name: Chen Xueqing
+                - hku_id: '3035639379'
+                  name: Lu Meng
+          description: 'Create a new list of HKU members'
+      tags:
+      - MemberList
+  /api/hku-members/{id}:
+    get:
+      operationId: retrieveHkuMemberDetail
+      summary: 'List the information of a member with specified id'
+      description: 'Shows all fields for this member'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this member'
+        schema:
+          type: string
+        example: '3035638351'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/HkuMember'
+              example:
+                - hku_id: '3035638351'
+                  name: Chen Xueqing
+          description: 'View the information of the specified HKU member'
+      tags:
+      - Member
+    put:
+      operationId: updateHkuMemberDetail
+      summary: 'Update the information of a member with specified id'
+      description: 'Update all fields for this venue'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this member'
+        schema:
+          type: string
+        example: '3035638351'
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/HkuMember'
+            example:
+              - hku_id: '3035638351'
+                name: Chen Xueqing
+          application/x-www-form-urlencoded:
+            schema: 
+              $ref: '#/components/schemas/HkuMember'
+            example:
+              - hku_id: '3035638351'
+                name: Chen Xueqing
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/HkuMember'
+            example:
+              - hku_id: '3035638351'
+                name: Chen Xueqing
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/HkuMember'
+              example:
+                - hku_id: '3035638351'
+                  name: Chen Xueqing
+          description: 'Update all information of the specified HKU member'
+      tags:
+      - Member
+    patch:
+      operationId: partialUpdateHkuMemberDetail
+      summary: 'Update partial information of a member with specified id'
+      description: 'Update partial fields for this member'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this member'
+        schema:
+          type: string
+        example: '3035638351'
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/HkuMember'
+            example:
+              - name: Chen Xueqing
+          application/x-www-form-urlencoded:
+            schema: 
+              $ref: '#/components/schemas/HkuMember'
+            example:
+              - name: Chen Xueqing
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/HkuMember'
+            example:
+              - name: Chen Xueqing
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/HkuMember'
+              example:
+                - name: Chen Xueqing
+          description: 'Update partial information of the specified HKU member'
+      tags:
+      - Member
+    delete:
+      operationId: destroyHkuMemberDetail
+      summary: 'Delete the information of a member with specified id'
+      description: 'Delete the record of this member'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique string identifying this member'
+        schema:
+          type: string
+        example: '3035638351'
+      responses:
+        '204':
+          description: 'Delete the record of the specified HKU member'
+      tags:
+      - Member
+  /api/visits:
+    get:
+      operationId: listVisits
+      summary: 'List all visit records'
+      description: 'Shows all fields for each visit record'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Visit'
+              example:
+                - id: 1
+                  enter_time: "2022-04-10T17:34:20+08:00"
+                  exit_time: "2022-04-10T18:34:30+08:00"
+                  hku_member: "3035638351"
+                  venue: "CPD-LG.09"
+                - id: 2
+                  enter_time: "2022-04-13T17:34:50+08:00"
+                  exit_time: "2022-04-13T18:34:52+08:00"
+                  hku_member: "3035638351"
+                  venue: "CPD-LG.10"
+          description: 'View the information of the list of visit records'
+      tags:
+      - VisitList
+    post:
+      operationId: createVisitList
+      summary: 'Create a new visit record list of HKU'
+      description: 'Create all fields for each visit record'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Visit'
+            example:
+              - id: 1
+                enter_time: "2022-04-10T17:34:20+08:00"
+                exit_time: "2022-04-10T18:34:30+08:00"
+                hku_member: "3035638351"
+                venue: "CPD-LG.09"
+              - id: 2
+                enter_time: "2022-04-13T17:34:50+08:00"
+                exit_time: "2022-04-13T18:34:52+08:00"
+                hku_member: "3035638351"
+                venue: "CPD-LG.10"
+          application/x-www-form-urlencoded:
+            schema: 
+              $ref: '#/components/schemas/Visit'
+            example:
+              - id: 1
+                enter_time: "2022-04-10T17:34:20+08:00"
+                exit_time: "2022-04-10T18:34:30+08:00"
+                hku_member: "3035638351"
+                venue: "CPD-LG.09"
+              - id: 2
+                enter_time: "2022-04-13T17:34:50+08:00"
+                exit_time: "2022-04-13T18:34:52+08:00"
+                hku_member: "3035638351"
+                venue: "CPD-LG.10"
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/Visit'
+            example:
+              - id: 1
+                enter_time: "2022-04-10T17:34:20+08:00"
+                exit_time: "2022-04-10T18:34:30+08:00"
+                hku_member: "3035638351"
+                venue: "CPD-LG.09"
+              - id: 2
+                enter_time: "2022-04-13T17:34:50+08:00"
+                exit_time: "2022-04-13T18:34:52+08:00"
+                hku_member: "3035638351"
+                venue: "CPD-LG.10"
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Visit'
+              example:
+                - id: 1
+                  enter_time: "2022-04-10T17:34:20+08:00"
+                  exit_time: "2022-04-10T18:34:30+08:00"
+                  hku_member: "3035638351"
+                  venue: "CPD-LG.09"
+                - id: 2
+                  enter_time: "2022-04-13T17:34:50+08:00"
+                  exit_time: "2022-04-13T18:34:52+08:00"
+                  hku_member: "3035638351"
+                  venue: "CPD-LG.10"
+          description: 'Create a new list of visit records'
+      tags:
+      - VisitList
+  /api/visits/{id}:
+    get:
+      operationId: retrieveVisitDetail
+      summary: 'List the information of a visit record with specified id'
+      description: 'Shows all fields for this visit record'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique integer identifying this visit record'
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Visit'
+              example:
+                - id: 1
+                  enter_time: "2022-04-10T17:34:20+08:00"
+                  exit_time: "2022-04-10T18:34:30+08:00"
+                  hku_member: "3035638351"
+                  venue: "CPD-LG.09"
+          description: 'View the information of the specified visit record'
+      tags:
+      - Visit
+    patch:
+      operationId: partialUpdateVisitDetail
+      summary: 'Update partial information of a visit record with specified id'
+      description: 'Update partial fields for this visit record'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'A unique integer identifying this visit record'
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Visit'
+            example:
+              - id: 1
+                exit_time: "2022-04-10T18:34:30+08:00"
+          application/x-www-form-urlencoded:
+            schema: 
+              $ref: '#/components/schemas/Visit'
+            example:
+              - id: 1
+                exit_time: "2022-04-10T18:34:30+08:00"
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/Visit'
+            example:
+              - id: 1
+                exit_time: "2022-04-10T18:34:30+08:00"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Visit'
+              example:
+                - id: 1
+                  exit_time: "2022-04-10T18:34:30+08:00"
+          description: 'Update partial information of the specified visit record'
+      tags:
+      - Visit
+  /api/trace/visits/{hku_id}/{date}:
+    get:
+      operationId: retrieveVisitBy
+      summary: 'List the visit records of the specified member while infectious'
+      description: 'Shows all fields for these visit records'
+      parameters:
+      - name: hku_id
+        in: path
+        required: true
+        description: 'A unique string identifying this member'
+        schema:
+          type: string
+        example: '3035638351'
+      - name: date
+        in: path
+        required: true
+        description: 'A date in the format of dd-mm-yyyy'
+        schema:
+          type: string
+        example: '10-04-2022'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Visit'
+              example:
+                - id: 1
+                  enter_time: "2022-04-10T17:34:20+08:00"
+                  exit_time: "2022-04-10T18:34:30+08:00"
+                  hku_member: "3035638351"
+                  venue: "CPD-LG.09"
+          description: 'View the information of the visit records of the specified member while infectious'
+      tags:
+      - Trace
+  /api/trace/contacts/{hku_id}/{date}:
+    get:
+      operationId: retrieveCloseContact
+      summary: 'List the members identified as close contacts because of the specified member'
+      description: 'Shows all fields for these members'
+      parameters:
+      - name: hku_id
+        in: path
+        required: true
+        description: 'A unique string identifying this member'
+        schema:
+          type: string
+        example: '3035638351'
+      - name: date
+        in: path
+        required: true
+        description: 'A date in the format of dd-mm-yyyy'
+        schema:
+          type: string
+        example: '13-04-2022'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/HkuMember'
+              example:
+                - hku_id: "3035639379"
+                  name: "Lu Meng"
+          description: 'View the information of members identified as close contacts because of the specified member'
+      tags:
+      - Trace
+      
+components:
+  schemas:
+    Venue:
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 20
+        location:
+          type: string
+          maxLength: 150
+        type:
+          enum:
+          - LT
+          - CR
+          - TR
+          type: string
+        capacity:
+          type: integer
+      required:
+      - code
+      - location
+      - type
+      - capacity
+    HkuMember:
+      type: object
+      properties:
+        hku_id:
+          type: string
+          maxLength: 10
+        name:
+          type: string
+          maxLength: 150
+      required:
+      - hku_id
+      - name
+    Visit:
+      type: object
+      properties:
+        id:
+          type: integer
+        enter_time:
+          type: string
+          format: date-time
+        exit_time:
+          type: string
+          format: date-time
+        hku_member:
+          type: string
+          maxLength: 10
+        venue:
+          type: string
+          maxLength: 20
+      required:
+      - enter_time
+      - hku_member
+      - venue
